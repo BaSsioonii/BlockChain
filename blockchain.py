@@ -188,7 +188,7 @@ class Branch:
         last_index_in_branch1 = self.get_previous_block().index;
         last_index_in_branch2 = branch2.get_previous_block().index;
         
-        if last_index_in_branch1 > last_index_in_branch2:
+        if (int(last_index_in_branch1) > int(last_index_in_branch2)):
             return self
         else:
             return branch2
@@ -224,7 +224,7 @@ def append_longest_branch(branch,main_blockchain):
 # First for loop to generate the main Block:
 main_chain = BlockChain()
 size_before_branching=4
-ti=0
+timme=0
 for x in range(size_before_branching):
     t1 = generation()
     main_chain.add_new_transaction(t1)
@@ -236,9 +236,10 @@ for x in range(size_before_branching):
     time1=time.time()
     main_chain.mining(prev_hash_main)
     time2=time.time()
-    ti=ti+(time2-time1)
-Avg_time=ti/size_before_branching
+    timme=timme+(time2-time1)
+Avg_time=timme/size_before_branching
 
+print("Chain before branching is: ")
 for x in main_chain.array:
     print(x.__dict__)
     # print(x.block_hash)
@@ -272,23 +273,13 @@ for x in range(5):
 longest= c1.choose_longest_branch(c2)
 append_longest_branch(longest,main_chain)
 
-print("Printing of C1")
-for x in c1.array:
-    print(x.__dict__)
-    # print(x.block_hash)
-
-print("Printing of C2")
-for x in c2.array:
-    print(x.__dict__)
-    # print(x.block_hash)
-
 print("Longest chain is ")
 for x in (c1.choose_longest_branch(c2)).array:
     print(x.__dict__)
 
-print("Whole Chain is ")
+print("Chain after choosing normal branch becomes ")
 for x in main_chain.array:
     print(x.__dict__)
 
-print("Average time taken for a block")
+print("Average time taken by a block")
 print(Avg_time)
